@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>DMI Drive</title>
+        <meta name = "viewport" content = "width=device-width, initial-scale=1" />
+        <link rel = "stylesheet" href = "style.css">
+        <script src = "https://cdn.tailwindcss.com"></script>
+        <link href='https://unpkg.com/css.gg@2.0.0/icons/css/folder.css' rel='stylesheet'>
+        <script type = "module" src = "scripts/index.ts"></script>
+    </head>
+    <body>
+        <div style = "position: absolute; left: 30px; top: 20px;">
+            <div id = "benvenuto" style = "color: white; opacity: 50%; font-family: 'Space Comicu'; font-size: 25px;"></div>
+        </div>
+        <div id = "login" style = "position: absolute; right: 30px; top: 15px; background-color: rgb(178, 143, 48); padding: 10px; border-radius: 10px; font-family: 'Space Comicu'; color: #4a3d10; box-shadow: 3px 3px 3px 1px #866c24;">
+            <a href = "login/login.html">Accedi</a>
+        </div>
+        <header id = "header" class = "w-full pt-20">
+            <div class = "w-full flex flex-row">
+                <div class = "w-full flex flex-row items-center justify-center">
+                    <div id = "title">DMI DRIVE</div>
+                    <img width = "200" src = "assets/logo.png" style = "margin-left: 10px">
+                </div>
+            </div>
+        </header>
+        <div class = "w-full flex flex-col items-center justify-center">
+            <folders-div id = "folders-list"></folders-div>
+            <files-div id = "files-list"></files-div>
+        </div>
+
+        <script>
+            const nome = window.location.href.split('=')[1];
+            if (nome.length > 0) {
+                document.getElementById('login').textContent = 'Inserisci documento';
+                document.getElementById('benvenuto').textContent = 'Benvenuto, ' + nome + ' !';
+            }
+        </script>
+    </body>
+</html>

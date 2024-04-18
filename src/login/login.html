@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel = "stylesheet" href = "../style.css">
+  <title>DMI Drive – Login</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container mt-5">
+    <!-- Pagina di Login -->
+    <div id="loginPage">
+      <div style = "display: flex; align-items: center; justify-content: center;">
+        <div style = "color: white; font-family: 'Space Comicu'; font-size: 50px;">Accedi</div>
+      </div>
+      <form>
+        <div class="form-group">
+          <br><br><br><br>
+          <label for="username" style = "color: white; font-size: 20px; font-family: 'Space Comicu';">Nome utente</label>
+          <input id = "nome" type="text" class="form-control" id="username" placeholder="Inserisci il nome utente">
+        </div>
+        <div class="form-group">
+          <br>
+          <label for="password" style = "color: white; font-size: 20px; font-family: 'Space Comicu';">Password</label>
+          <input type="password" class="form-control" id="password" placeholder="Password">
+        </div>
+        <a type="button" onclick="window.location.href = '/?nome=' + document.getElementById('nome').value;" style = "background-color: rgb(178, 143, 48); padding: 10px; border-radius: 10px; font-family: 'Space Comicu'; box-shadow: 3px 3px 3px 1px #866c24; margin-left: 74vw; color: #4a3d10">Accedi</a>
+      </form>
+    </div>
+
+    <!-- Pagina dopo il Login -->
+    <div id="loggedInPage" style="display: none;">
+      <h2 style = "color: white">Benvenuto!</h2>
+      <button class="btn btn-success" onclick="visualizzaCartella()">Visualizza Cartella Drive</button>
+      <button class="btn btn-info" onclick="inserisciDocumento()">Inserisci Nuovo Documento</button>
+    </div>
+
+    <!-- Visualizzazione Cartella Drive -->
+    <div id="cartellaDrive" style="display: none;">
+      <h3>Cartella Drive</h3>
+      <button class="btn btn-secondary mb-3" onclick="tornaIndietro()">Indietro</button>
+      <button class="btn btn-primary" onclick="visualizzaTuttaCartella()">Visualizza Tutto</button>
+      <button class="btn btn-primary" onclick="visualizzaPerRicerca()">Visualizza per Ricerca</button>
+      <div id="risultatoRicerca" style="display: none;">
+        <input type="text" id="barraRicerca" class="form-control" placeholder="Inserisci termine di ricerca">
+        <button class="btn btn-primary mt-2" onclick="eseguiRicerca()">Cerca</button>
+      </div>
+      <div id="risultatoCartella"></div>
+    </div>
+
+    <!-- Inserimento Nuovo Documento -->
+    <div id="nuovoDocumento" style="display: none;">
+      <h3>Inserisci Nuovo Documento</h3>
+      <button class="btn btn-secondary mb-3" onclick="tornaIndietro()">Indietro</button>
+      <form>
+        <div class="form-group">
+          <label for="autore">Autore</label>
+          <input type="text" class="form-control" id="autore" placeholder="Inserisci l'autore">
+        </div>
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input type="email" class="form-control" id="email" placeholder="Inserisci l'email">
+        </div>
+        <div class="form-group">
+          <label for="titolo">Titolo</label>
+          <input type="text" class="form-control" id="titolo" placeholder="Inserisci il titolo">
+        </div>
+        <div class="form-group">
+          <label for="descrizione">Descrizione</label>
+          <textarea class="form-control" id="descrizione" rows="3" placeholder="Inserisci la descrizione"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="file">File</label>
+          <input type="file" class="form-control-file" id="file">
+        </div>
+        <button type="button" class="btn btn-primary" onclick="caricaDocumento()">Carica Documento</button>
+      </form>
+      <div id="messaggioCaricamento"></div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    // Funzione per effettuare il login
+    function login() {
+      var username = document.getElementById("username").value;
+      var password = document.getElementById("password").value;
+      // Puoi aggiungere qui la logica per il controllo delle credenziali
+      // E mostrare/nascondere le pagine di conseguenza
+      document.getElementById("loginPage").style.display = "none";
+      document.getElementById("loggedInPage").style.display = "block";
+    }
+
+    // Funzione per visualizzare la cartella Drive
+    function visualizzaCartella() {
+      document.getElementById("loggedInPage").style.display = "none";
+      document.getElementById("cartellaDrive").style.display = "block";
+    }
+
+    // Funzione per visualizzare tutta la cartella Drive
+    function visualizzaTuttaCartella() {
+      // Puoi aggiungere qui la logica per recuperare e visualizzare i file presenti nella cartella
+      document.getElementById("risultatoCartella").innerHTML = "<p>Visualizzazione di tutti i file...</p>";
+    }
+
+    // Funzione per visualizzare i file basati sulla ricerca
+    function visualizzaPerRicerca() {
+      document.getElementById("risultatoRicerca").style.display = "block";
+    }
+
+    // Funzione per eseguire la ricerca nella cartella Drive
+    function eseguiRicerca() {
+      var termineRicerca = document.getElementById("barraRicerca").value;
+      // Puoi aggiungere qui la logica per eseguire la ricerca
+      document.getElementById("risultatoCartella").innerHTML = "<p>Risultati della ricerca per '" + termineRicerca + "'...</p>";
+    }
+
+    // Funzione per inserire un nuovo documento nella cartella Drive
+    function inserisciDocumento() {
+      document.getElementById("loggedInPage").style.display = "none";
+      document.getElementById("nuovoDocumento").style.display = "block";
+    }
+
+    // Funzione per caricare il nuovo documento
+    function caricaDocumento() {
+      // Puoi aggiungere qui la logica per il caricamento del documento
+      document.getElementById("messaggioCaricamento").innerHTML = "<p>Documento caricato con successo!</p>";
+    }
+
+    // Funzione per tornare alla pagina precedente
+    function tornaIndietro() {
+      document.getElementById("cartellaDrive").style.display = "none";
+      document.getElementById("nuovoDocumento").style.display = "none";
+      document.getElementById("loggedInPage").style.display = "block";
+    }
+  </script>
+</body>
+</html>
